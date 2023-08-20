@@ -9,6 +9,7 @@ interface DragOverlayProps {
   children: JSX.Element | ((activeDraggable: Draggable | null) => JSX.Element);
   class?: string;
   style?: JSX.CSSProperties;
+  mount?: HTMLElement | null;
 }
 
 const DragOverlay: Component<DragOverlayProps> = (props) => {
@@ -57,7 +58,7 @@ const DragOverlay: Component<DragOverlayProps> = (props) => {
   };
 
   return (
-    <Portal mount={document.body}>
+    <Portal mount={props.mount ?? document.body}>
       <Show when={state.active.draggable}>
         <div ref={node} class={props.class} style={style()}>
           {typeof props.children === "function"
